@@ -214,8 +214,10 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad2()
         {
-            
-
+            var res = from emp in Emps
+                      where emp.Job == "Frontend programmer" && emp.Salary > 1000
+                      orderby emp.Ename
+                      select emp;
         }
 
         /// <summary>
@@ -223,7 +225,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad3()
         {
-          
+            int maxSalary = (from emp in Emps select emp).Max(e => e.Salary);
         }
 
         /// <summary>
@@ -231,7 +233,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad4()
         {
-
+            var res = from employee in Emps where employee.Salary == (from emp in Emps select emp).Max(e => e.Salary) select employee;
         }
 
         /// <summary>
@@ -239,7 +241,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad5()
         {
-
+            var res = from emp in Emps select new { Nazwisko = emp.ename, Praca = emp.job };
         }
 
         /// <summary>
@@ -249,7 +251,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad6()
         {
-
+            var res = from emp in Emps join dept in Depts on emp.Deptno equals dept.Deptno select new { emp.Ename, emp.Job, dept.Dname };
         }
 
         /// <summary>
@@ -257,7 +259,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad7()
         {
-
+            var res = from emp in Emps group emp by emp.Job into empGroup select new { Job = empGroup.Key, Count = empGroup.Count() };
         }
 
         /// <summary>
@@ -266,7 +268,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad8()
         {
-
+            bool res = Emps.Any(e => e.Job == "Backend programmer");
         }
 
         /// <summary>
@@ -275,7 +277,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad9()
         {
-
+            var res = (from emp in Emps where emp.Job == "Frontend programmer" orderby emp.LastName descending select emp).Take(1);
         }
 
         /// <summary>
